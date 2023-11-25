@@ -17,10 +17,10 @@ def compare_plot(
         scaler = MinMaxScaler()
         x = data['index']
 
-        y = scaler.fit_transform(
-            data['REAL'].values.reshape(-1, 1)).reshape(-1)
-        y2 = scaler.fit_transform(
-            data['PREDICTION'].values.reshape(-1, 1)).reshape(-1)
+        y = data['REAL']  # scaler.fit_transform(
+        # data['REAL'].values.reshape(-1, 1)).reshape(-1)
+        y2 = data['PREDICTION']  # scaler.fit_transform(
+        # data['PREDICTION'].values.reshape(-1, 1)).reshape(-1)
 
         plt.title('TRAIN')
         if index == len_ - 1:
@@ -55,10 +55,10 @@ def compare_plot(
         scaler = MinMaxScaler()
 
         x = data['index']
-        y = scaler.fit_transform(
-            data['REAL'].values.reshape(-1, 1)).reshape(-1)
-        y2 = scaler.fit_transform(
-            data['PREDICTION'].values.reshape(-1, 1)).reshape(-1)
+        y = data['REAL']  # scaler.fit_transform(
+        # data['REAL'].values.reshape(-1, 1)).reshape(-1)
+        y2 = data['PREDICTION']  # scaler.fit_transform(
+        # data['PREDICTION'].values.reshape(-1, 1)).reshape(-1)
 
         plt.title('TEST')
 

@@ -56,35 +56,35 @@ def get_initial_input():
          1))
 
     # SCALER
-    # train_df = pd.DataFrame(data=train.reshape(8585, -1))
-    # test_df = pd.DataFrame(data=test.reshape(6062, -1))
+    train_df = pd.DataFrame(data=train.reshape(8585, -1))
+    test_df = pd.DataFrame(data=test.reshape(6062, -1))
 
-    # # Adicione as colunas de rótulos aos DataFrames
-    # train_df['Label'] = label_train
-    # test_df['Label'] = label_test
+    # Adicione as colunas de rótulos aos DataFrames
+    train_df['Label'] = label_train
+    test_df['Label'] = label_test
 
-    # # Adicione a coluna 'type_of_data' para indicar se é de treino ou teste
-    # train_df['type_of_data'] = 'train'
-    # test_df['type_of_data'] = 'test'
+    # Adicione a coluna 'type_of_data' para indicar se é de treino ou teste
+    train_df['type_of_data'] = 'train'
+    test_df['type_of_data'] = 'test'
 
     # # Concatene os DataFrames
-    # combined_df = pd.concat([train_df, test_df])
+    combined_df = pd.concat([train_df, test_df])
 
     # # Crie um Min-Max Scaler
-    # scaler = MinMaxScaler(feature_range=(0.10000000149011612, 1))
+    scaler = MinMaxScaler()
     # #
     # # Ajuste o scaler apenas às labels
-    # combined_df['Label'] = scaler.fit_transform(
-    #     combined_df['Label'].values.reshape(-1, 1))
+    combined_df['Label'] = scaler.fit_transform(
+        combined_df['Label'].values.reshape(-1, 1))
 
     # # Separe os dados de volta em treino e teste
-    # train = combined_df[combined_df['type_of_data'] ==
-    #                     'train'].iloc[:, :-2].values.reshape(8585, 38, 38, 1)
-    # test = combined_df[combined_df['type_of_data'] ==
-    #                    'test'].iloc[:, :-2].values.reshape(6062, 38, 38, 1)
-    # label_train = combined_df[combined_df['type_of_data']
-    #                           == 'train']['Label'].values
-    # label_test = combined_df[combined_df['type_of_data']
-    #                          == 'test']['Label'].values
+    train = combined_df[combined_df['type_of_data'] ==
+                        'train'].iloc[:, :-2].values.reshape(8585, 38, 38, 1)
+    test = combined_df[combined_df['type_of_data'] ==
+                       'test'].iloc[:, :-2].values.reshape(6062, 38, 38, 1)
+    label_train = combined_df[combined_df['type_of_data']
+                              == 'train']['Label'].values
+    label_test = combined_df[combined_df['type_of_data']
+                             == 'test']['Label'].values
 
     return train, test, label_train, label_test

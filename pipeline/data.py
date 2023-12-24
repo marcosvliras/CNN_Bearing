@@ -34,12 +34,12 @@ def get_initial_input():
         data_Bearing1_7, 75, 'Horiz_accel', 'rul')
 
     # train
-    train = np.concatenate((array1_1, array1_2, array1_5, array1_6), axis=0)
-    label_train = np.concatenate((rul1_1, rul1_2, rul1_5, rul1_6), axis=0)
+    train = np.concatenate((array1_7, array1_2, array1_5, array1_1, array1_3, array1_4), axis=0)
+    label_train = np.concatenate((rul1_7, rul1_2, rul1_5, rul1_1, rul1_3, rul1_4), axis=0)
 
     # test
-    test = np.concatenate((array1_3, array1_4, array1_7), axis=0)
-    label_test = np.concatenate((rul1_3, rul1_4, rul1_7), axis=0)
+    test = array1_6#np.concatenate((array1_3, array1_4, array1_7), axis=0)
+    label_test = rul1_6#np.concatenate((rul1_3, rul1_4, rul1_7), axis=0)
 
     # reshape train
     train = train.reshape(
@@ -56,35 +56,35 @@ def get_initial_input():
          1))
 
     # SCALER
-    train_df = pd.DataFrame(data=train.reshape(8585, -1))
-    test_df = pd.DataFrame(data=test.reshape(6062, -1))
+    #train_df = pd.DataFrame(data=train.reshape(8585, -1))
+    #test_df = pd.DataFrame(data=test.reshape(6062, -1))
 
-    # Adicione as colunas de rótulos aos DataFrames
-    train_df['Label'] = label_train
-    test_df['Label'] = label_test
+    ## Adicione as colunas de rótulos aos DataFrames
+    #train_df['Label'] = label_train
+    #test_df['Label'] = label_test
 
-    # Adicione a coluna 'type_of_data' para indicar se é de treino ou teste
-    train_df['type_of_data'] = 'train'
-    test_df['type_of_data'] = 'test'
+    ## Adicione a coluna 'type_of_data' para indicar se é de treino ou teste
+    #train_df['type_of_data'] = 'train'
+    #test_df['type_of_data'] = 'test'
 
-    # # Concatene os DataFrames
-    combined_df = pd.concat([train_df, test_df])
+    ## # Concatene os DataFrames
+    #combined_df = pd.concat([train_df, test_df])
 
-    # # Crie um Min-Max Scaler
-    scaler = MinMaxScaler()
-    # #
-    # # Ajuste o scaler apenas às labels
-    combined_df['Label'] = scaler.fit_transform(
-        combined_df['Label'].values.reshape(-1, 1))
-
-    # # Separe os dados de volta em treino e teste
-    train = combined_df[combined_df['type_of_data'] ==
-                        'train'].iloc[:, :-2].values.reshape(8585, 38, 38, 1)
-    test = combined_df[combined_df['type_of_data'] ==
-                       'test'].iloc[:, :-2].values.reshape(6062, 38, 38, 1)
-    label_train = combined_df[combined_df['type_of_data']
-                              == 'train']['Label'].values
-    label_test = combined_df[combined_df['type_of_data']
-                             == 'test']['Label'].values
+    ## # Crie um Min-Max Scaler
+    #scaler = MinMaxScaler()
+    ## #
+    ## # Ajuste o scaler apenas às labels
+    #combined_df['Label'] = scaler.fit_transform(
+    #    combined_df['Label'].values.reshape(-1, 1))
+    #
+    ## # Separe os dados de volta em treino e teste
+    #train = combined_df[combined_df['type_of_data'] ==
+    #                    'train'].iloc[:, :-2].values.reshape(8585, 38, 38, 1)
+    #test = combined_df[combined_df['type_of_data'] ==
+    #                   'test'].iloc[:, :-2].values.reshape(6062, 38, 38, 1)
+    #label_train = combined_df[combined_df['type_of_data']
+    #                          == 'train']['Label'].values
+    #label_test = combined_df[combined_df['type_of_data']
+    #                         == 'test']['Label'].values
 
     return train, test, label_train, label_test
